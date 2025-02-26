@@ -27,7 +27,7 @@ export class RegisterAuthPJDto {
     @IsString()
     @IsNotEmpty()
     @MinLength(8)
-    password: string;
+    hashPassword: string;
 
     @IsNotEmpty()
     @Validate(CnpjValidator)

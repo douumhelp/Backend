@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/co
 import { UserPFService } from '../userpf/userpf.service';
 import { UserPJService } from '../userpj/userpj.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { RegisterAuthPFDto } from './dto/register-authPF.dto';
 import { RegisterAuthPJDto } from './dto/register-authPJ.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -22,10 +22,10 @@ export class AuthService {
       throw new ConflictException('E-mail já cadastrado!');
     }
 
-    const hashedPassword = await bcrypt.hash(dto.password, 10);
+    const hashedPassword = await bcrypt.hash(dto.hashPassword, 10);
     const user = await this.userPFService.createUserPF({
       ...dto,
-      password: hashedPassword,
+      hashPassword: hashedPassword,
     });
 
     return { message: 'Cadastro realizado com sucesso!', user };
@@ -37,17 +37,17 @@ export class AuthService {
       throw new ConflictException('E-mail já cadastrado!');
     }
 
-    const hashedPassword = await bcrypt.hash(dto.password, 10);
+    const hashedPassword = await bcrypt.hash(dto.hashPassword, 10);
     const user = await this.userPJService.createUserPJ({
       ...dto,
-      password: hashedPassword,
+      hashPassword: hashedPassword,
     });
 
     return { message: 'Cadastro realizado com sucesso!', user };
   }
 
   async login(dto: LoginAuthDto) {
-    const { username, email, cpf, cnpj, password } = dto;
+    const { username, email, cpf, cnpj, hashPassword } = dto;
     let user;
     let role;
 
@@ -69,7 +69,7 @@ export class AuthService {
       throw new UnauthorizedException('Usuário não encontrado!');
     }
 
-    const passwordValid = await bcrypt.compare(password, user.hashPassword); 
+    const passwordValid = await bcrypt.compare(hashPassword, user.hashPassword); 
     if (!passwordValid) {
       throw new UnauthorizedException('Senha incorreta!');
     }

@@ -26,5 +26,5 @@ export class LoginAuthDto {
     //Fazer Verificação de senha forte no Front-End.
     @IsString()
     @IsNotEmpty()
-    password: string;
+    hashPassword: string;
 }

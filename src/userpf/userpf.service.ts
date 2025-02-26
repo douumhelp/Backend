@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserPF } from './userpf.entity'; 
 import { RegisterAuthPFDto } from 'src/auth/dto/register-authPF.dto';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserPFService {
@@ -13,7 +13,7 @@ export class UserPFService {
   ) {}
 
   async createUserPF(data: RegisterAuthPFDto) {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(data.hashPassword, 10);
 
     const userPF = this.userPFRepository.create({
       username: data.username,

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserPJ } from './userpj.entity'; 
 import { RegisterAuthPJDto } from 'src/auth/dto/register-authPJ.dto';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserPJService {
@@ -13,7 +13,7 @@ export class UserPJService {
   ) {}
 
   async createUserPJ(data: RegisterAuthPJDto) {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(data.hashPassword, 10);
 
     const userPJ = this.userPJRepository.create({
       username: data.username,

@@ -22,7 +22,6 @@ export class RegisterAuthPFDto {
     @IsNotEmpty()
     email: string;
 
-    //Mudar para @IsStrongPassword no futuro
     @IsString()
     @IsNotEmpty()
     @MinLength(8)

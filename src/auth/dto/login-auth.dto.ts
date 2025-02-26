@@ -23,7 +23,6 @@ export class LoginAuthDto {
     @ValidateIf((o) => !o.username && !o.email && !o.cpf) 
     cnpj?: string;
 
-    //Fazer Verificação de senha forte no Front-End.
     @IsString()
     @IsNotEmpty()
     hashPassword: string;

@@ -23,7 +23,6 @@ export class RegisterAuthPJDto {
     @IsNotEmpty()
     email: string;
 
-    //Mudar para @IsStrongPassword no futuro
     @IsString()
     @IsNotEmpty()
     @MinLength(8)

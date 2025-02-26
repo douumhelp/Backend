@@ -17,19 +17,22 @@ export class AuthService {
   ) {}
 
   async registerPF(dto: RegisterAuthPFDto) {
+    console.log('DTO recebido para registro:', dto);
+    console.log('Senha recebida para hash:', dto.hashPassword);
+  
     const userExists = await this.userPFService.findByEmail(dto.email);
     if (userExists) {
       throw new ConflictException('E-mail já cadastrado!');
     }
+  
+    console.log('Usuário não encontrado, continuando com registro.');
+  
+    const user = await this.userPFService.createUserPF(dto);
 
-    const hashedPassword = await bcrypt.hash(dto.hashPassword, 10);
-    const user = await this.userPFService.createUserPF({
-      ...dto,
-      hashPassword: hashedPassword,
-    });
-
+    console.log('Usuário cadastrado com sucesso:', user);
     return { message: 'Cadastro realizado com sucesso!', user };
   }
+  
 
   async registerPJ(dto: RegisterAuthPJDto) {
     const userExists = await this.userPJService.findByEmail(dto.email);
@@ -37,11 +40,7 @@ export class AuthService {
       throw new ConflictException('E-mail já cadastrado!');
     }
 
-    const hashedPassword = await bcrypt.hash(dto.hashPassword, 10);
-    const user = await this.userPJService.createUserPJ({
-      ...dto,
-      hashPassword: hashedPassword,
-    });
+    const user = await this.userPJService.createUserPJ(dto);
 
     return { message: 'Cadastro realizado com sucesso!', user };
   }
@@ -69,10 +68,15 @@ export class AuthService {
       throw new UnauthorizedException('Usuário não encontrado!');
     }
 
-    const passwordValid = await bcrypt.compare(hashPassword, user.hashPassword); 
+    const passwordValid = await bcrypt.compare(dto.hashPassword, user.hashPassword);
+    console.log('Senha digitada:', dto.hashPassword);
+    console.log('Senha armazenada:', user.hashPassword);
+    console.log('Senha válida?', passwordValid);
+    
     if (!passwordValid) {
       throw new UnauthorizedException('Senha incorreta!');
     }
+    
 
     const payload = { sub: user.id, role: role };
     const token = this.jwtService.sign(payload, {

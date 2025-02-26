@@ -13,8 +13,11 @@ export class UserPFService {
   ) {}
 
   async createUserPF(data: RegisterAuthPFDto) {
+    console.log('Criando usuário PF com os dados:', data);
+  
     const hashedPassword = await bcrypt.hash(data.hashPassword, 10);
-
+    console.log('Senha hasheada para salvar no banco:', hashedPassword);
+  
     const userPF = this.userPFRepository.create({
       username: data.username,
       firstName: data.firstName,
@@ -24,9 +27,10 @@ export class UserPFService {
       cpf: data.cpf,
       telephone: data.telephone,
     });
-
+  
     return this.userPFRepository.save(userPF);
   }
+  
 
   async getUserPF(id: string) {
     return this.userPFRepository.findOne({ where: { id } });

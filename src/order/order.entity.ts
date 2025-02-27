@@ -9,8 +9,8 @@ export enum OrderStatus {
   REJECTED = 'Recusado',
 }
 
-@Entity('order_request')
-export class OrderRequest {
+@Entity('order')
+export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -30,10 +30,10 @@ export class OrderRequest {
   })
   status: OrderStatus;
 
-  @ManyToOne(() => UserPF, (userPF) => userPF.orderRequests)
+  @ManyToOne(() => UserPF, (userPF) => userPF.order)
   userPF: UserPF;
 
-  @ManyToOne(() => UserPJ, (userPJ) => userPJ.orderRequests)
+  @ManyToOne(() => UserPJ, (userPJ) => userPJ.order)
   userPJ: UserPJ;
 
   @ManyToOne(() => Category)

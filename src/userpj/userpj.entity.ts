@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { Category } from '../categories/category.entity';
-import { OrderRequest } from 'src/orderRequest/orderRequest.entity';
+import { Order } from 'src/order/order.entity';
 
 @Entity('user_pj')
 export class UserPJ {
@@ -39,6 +39,6 @@ export class UserPJ {
   })
   categories: Category[];
 
-  @OneToMany(() => OrderRequest, (orderRequest) => orderRequest.userPJ)
-  orderRequests: OrderRequest[];
+  @OneToMany(() => Order, (order) => order.userPJ)
+  order: Order[];
 } 

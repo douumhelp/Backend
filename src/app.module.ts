@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserPF } from './userpf/userpf.entity';
 import { UserPJ } from './userpj/userpj.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { JwtModule } from '@nestjs/jwt';
     UserPFModule,
     UserPJModule,
     AuthModule,
+    CategoriesModule,
   ],
 })
 export class AppModule {}

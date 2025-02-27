@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Category } from '../categories/entities/category.entity';
 
 @Entity('user_pj')
 export class UserPJ {
@@ -25,4 +26,18 @@ export class UserPJ {
 
   @Column()
   telephone: string;
-}
+
+  @ManyToMany(() => Category, (category) => category.userPJs)
+  @JoinTable({
+    name: 'user_pj_categories', // Nome da tabela intermediária
+    joinColumn: {
+      name: 'user_pj_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'category_id',
+      referencedColumnName: 'id',
+    },
+  })
+  categories: Category[];
+} 

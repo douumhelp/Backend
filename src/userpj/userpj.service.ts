@@ -4,12 +4,14 @@ import { Repository } from 'typeorm';
 import { UserPJ } from './userpj.entity'; 
 import { RegisterAuthPJDto } from 'src/auth/dto/register-authPJ.dto';
 import * as bcrypt from 'bcryptjs';
+import { Category } from 'src/categories/entities/category.entity';
 
 @Injectable()
 export class UserPJService {
   constructor(
-    @InjectRepository(UserPJ)
-    private userPJRepository: Repository<UserPJ>,
+    @InjectRepository(UserPJ) private userPJRepository: Repository<UserPJ>,
+
+    @InjectRepository(Category) private readonly categoryRepository: Repository<Category>
   ) {}
 
   async createUserPJ(data: RegisterAuthPJDto) {
@@ -55,4 +57,6 @@ export class UserPJService {
   async updateUserPJ(id: string, data: any) {
     return this.userPJRepository.update(id, data);
   }
+
+  
 }

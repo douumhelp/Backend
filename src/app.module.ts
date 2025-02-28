@@ -6,6 +6,8 @@ import { AuthModule } from './auth/auth.module';
 import { UserPF } from './userpf/userpf.entity';
 import { UserPJ } from './userpj/userpj.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { CategoriesModule } from './categories/categories.module';
+import { Category } from './categories/entities/category.entity';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { JwtModule } from '@nestjs/jwt';
       username: 'root',
       password: 'password',
       database: 'postgres',
-      entities: [UserPF, UserPJ],
+      entities: [UserPF, UserPJ, Category],
       synchronize: true,
     }),
     JwtModule.register({
@@ -26,6 +28,7 @@ import { JwtModule } from '@nestjs/jwt';
     UserPFModule,
     UserPJModule,
     AuthModule,
+    CategoriesModule,
   ],
 })
 export class AppModule {}

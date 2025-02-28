@@ -8,9 +8,10 @@ import { CategoriesModule } from 'src/categories/categories.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserPJ, Category]),
-    forwardRef(() => CategoriesModule), // Usando forwardRef para evitar dependência circular
+    forwardRef(() => CategoriesModule),
   ],
   providers: [UserPJService],
-  exports: [UserPJService],
+  exports: [UserPJService, TypeOrmModule], 
 })
 export class UserPJModule {}
+

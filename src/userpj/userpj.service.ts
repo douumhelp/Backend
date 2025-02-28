@@ -9,11 +9,9 @@ import { Category } from 'src/categories/entities/category.entity';
 @Injectable()
 export class UserPJService {
   constructor(
-    @InjectRepository(UserPJ)
-    private userPJRepository: Repository<UserPJ>,
+    @InjectRepository(UserPJ) private userPJRepository: Repository<UserPJ>,
 
-    @InjectRepository(Category)
-    private readonly categoryRepository: Repository<Category>
+    @InjectRepository(Category) private readonly categoryRepository: Repository<Category>
   ) {}
 
   async createUserPJ(data: RegisterAuthPJDto) {

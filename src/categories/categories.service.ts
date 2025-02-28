@@ -13,6 +13,14 @@ export class CategoriesService {
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
   ) {}
+
+  async getAllCategories(): Promise<{ id: string; name: string }[]> {
+    const categories = await this.categoryRepository.find({
+      select: ['id', 'name'], 
+    });
+    return categories;
+  }
+
   
   async addCategoriesToUserPJ(userId: string, categoryIds: string[]): Promise<UserPJ> {
     const user = await this.userPJRepository.findOne({

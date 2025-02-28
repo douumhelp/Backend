@@ -29,7 +29,7 @@ export class UserPJ {
 
   @ManyToMany(() => Category, (category) => category.userPJs)
   @JoinTable({
-    name: 'user_pj_categories', // Nome da tabela intermediária
+    name: 'user_pj_categories', 
     joinColumn: {
       name: 'user_pj_id',
       referencedColumnName: 'id',

@@ -11,4 +11,9 @@ export class CategoriesController {
     const { userId, categoryIds } = body;
     return await this.categoriesService.addCategoriesToUserPJ(userId, categoryIds);
   }
+
+  @Get()
+  async getAllCategories() {
+    return this.categoriesService.getAllCategories();
+  }
 }

@@ -13,7 +13,7 @@ import { Category } from './categories/entities/category.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'db',
+      host: 'localhost',
       port: 5432,
       username: 'root',
       password: 'password',

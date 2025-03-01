@@ -7,7 +7,7 @@ import { UserPF } from './userpf/userpf.entity';
 import { UserPJ } from './userpj/userpj.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { CategoriesModule } from './categories/categories.module';
-import { Category } from './categories/entities/category.entity';
+import { Category } from './categories/category.entity';
 
 @Module({
   imports: [

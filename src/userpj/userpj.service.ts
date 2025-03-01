@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { UserPJ } from './userpj.entity'; 
 import { RegisterAuthPJDto } from 'src/auth/dto/register-authPJ.dto';
 import * as bcrypt from 'bcryptjs';
-import { Category } from 'src/categories/entities/category.entity';
+import { Category } from 'src/categories/category.entity';
 
 @Injectable()
 export class UserPJService {

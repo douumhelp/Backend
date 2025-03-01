@@ -4,7 +4,6 @@ import { CnpjValidator } from "../../common/validators/cpf-cnpj.validator";
 
 export class RegisterAuthPJDto {
 
-    
     @IsString()
     @IsNotEmpty()
     @MinLength(4)

@@ -1,15 +1,20 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriesService } from './categories.service';
-import { Category } from './entities/category.entity';
+import { Category } from './category.entity';
 import { CategoriesController } from './categories.controller';
 import { UserPJ } from 'src/userpj/userpj.entity';
 import { UserPJModule } from 'src/userpj/userpj.module';  
+import { UserPF } from 'src/userpf/userpf.entity';
+import { UserPFModule } from 'src/userpf/userpf.module';
+import { OrderRequestModule } from 'src/orderRequest/orderRequest.module';  
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Category, UserPJ]),
+    TypeOrmModule.forFeature([Category, UserPJ, UserPF]),
     forwardRef(() => UserPJModule), 
+    forwardRef(() => UserPFModule), 
+    forwardRef(() => OrderRequestModule),  
   ],
   providers: [CategoriesService],
   controllers: [CategoriesController],

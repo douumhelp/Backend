@@ -11,6 +11,7 @@ import { UserPJ } from '../userpj/userpj.entity';
 import { UserPFModule } from 'src/userpf/userpf.module';
 import { UserPJModule } from 'src/userpj/userpj.module';
 import { CategoriesModule } from 'src/categories/categories.module';
+import { OrderRequestModule } from 'src/orderRequest/orderRequest.module';  
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CategoriesModule } from 'src/categories/categories.module';
     forwardRef(() => UserPFModule),
     forwardRef(() => UserPJModule),
     forwardRef(() => CategoriesModule),
+    forwardRef(() => OrderRequestModule),  
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, UserPFService, UserPJService],

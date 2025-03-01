@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { OrderRequest } from 'src/orderRequest/orderRequest.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity('user_pf')
 export class UserPF {
@@ -25,4 +26,7 @@ export class UserPF {
 
   @Column()
   telephone: string;
+
+  @OneToMany(() => OrderRequest, (orderRequest) => orderRequest.userPF)
+  orderRequests: OrderRequest[];
 }

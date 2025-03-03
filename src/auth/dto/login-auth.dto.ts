@@ -3,11 +3,6 @@ import { CpfValidator, CnpjValidator } from "../../common/validators/cpf-cnpj.va
 
 export class LoginAuthDto {
 
-    @IsString()
-    @IsNotEmpty()
-    @ValidateIf((o) => !o.email && !o.cpf && !o.cnpj) 
-    username?: string;
-
     @IsEmail()
     @IsNotEmpty()
     @ValidateIf((o) => !o.username && !o.cpf && !o.cnpj) 

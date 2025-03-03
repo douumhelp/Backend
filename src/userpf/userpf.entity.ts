@@ -7,9 +7,6 @@ export class UserPF {
   id: string;
 
   @Column()
-  username: string;
-
-  @Column()
   firstName: string;
 
   @Column()

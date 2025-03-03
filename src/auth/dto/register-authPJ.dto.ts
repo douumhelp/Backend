@@ -6,12 +6,6 @@ export class RegisterAuthPJDto {
 
     @IsString()
     @IsNotEmpty()
-    @MinLength(4)
-    @MaxLength(20)
-    username: string;
-
-    @IsString()
-    @IsNotEmpty()
     firstName: string;
 
     @IsString()

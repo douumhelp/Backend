@@ -46,15 +46,12 @@ export class AuthService {
   }
 
   async login(dto: LoginAuthDto) {
-    const { username, email, cpf, cnpj, hashPassword } = dto;
+    const { email, cpf, cnpj, hashPassword } = dto;
     let user;
     let role;
 
     if (email) {
       user = await this.userPFService.findByEmail(email) || await this.userPJService.findByEmail(email);
-      role = user instanceof UserPF ? 'pf' : 'pj';
-    } else if (username) {
-      user = await this.userPFService.findByUsername(username) || await this.userPJService.findByUsername(username);
       role = user instanceof UserPF ? 'pf' : 'pj';
     } else if (cpf) {
       user = await this.userPFService.findByCpf(cpf.replace(/\D/g, ''));

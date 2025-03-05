@@ -19,7 +19,6 @@ export class UserPFService {
     console.log('Senha hasheada para salvar no banco:', hashedPassword);
   
     const userPF = this.userPFRepository.create({
-      username: data.username,
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
@@ -46,10 +45,6 @@ export class UserPFService {
 
   async findByEmail(email: string) {
     return this.userPFRepository.findOne({ where: { email } });
-  }
-
-  async findByUsername(username: string) {
-    return this.userPFRepository.findOne({ where: { username } });
   }
 
   async findByCpf(cpf: string) {

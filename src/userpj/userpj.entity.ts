@@ -8,9 +8,6 @@ export class UserPJ {
   id: string;
 
   @Column()
-  username: string;
-
-  @Column()
   firstName: string;
 
   @Column()

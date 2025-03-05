@@ -18,7 +18,6 @@ export class UserPJService {
     const hashedPassword = await bcrypt.hash(data.hashPassword, 10);
 
     const userPJ = this.userPJRepository.create({
-      username: data.username,
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
@@ -44,10 +43,6 @@ export class UserPJService {
 
   async findByEmail(email: string) {
     return this.userPJRepository.findOne({ where: { email } });
-  }
-
-  async findByUsername(username: string) {
-    return this.userPJRepository.findOne({ where: { username } });
   }
 
   async findByCnpj(cnpj: string) {

@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, OneToMany } from 'typeorm';
 import { UserPJ } from '../userpj/userpj.entity';
-import { OrderRequest } from 'src/orderRequest/orderRequest.entity';
+import { Order } from 'src/order/order.entity';
 
 @Entity('category')
 export class Category {
@@ -13,6 +13,6 @@ export class Category {
   @ManyToMany(() => UserPJ, (userPJ) => userPJ.categories)
   userPJs: UserPJ[];
 
-  @OneToMany(() => OrderRequest, (orderRequest) => orderRequest.category)
-  orderRequests: OrderRequest[];
+  @OneToMany(() => Order, (order) => order.category)
+  orderRequests: Order[];
 }

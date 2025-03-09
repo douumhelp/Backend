@@ -8,8 +8,10 @@ import { UserPJ } from './userpj/userpj.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/category.entity';
-import { OrderRequest } from './orderRequest/orderRequest.entity';
-import { OrderRequestModule } from './orderRequest/orderRequest.module';
+import { Order } from './order/order.entity';
+import { OrderModule } from './order/order.module';
+import { OrderRequestModule } from './order-request/order-request.module';
+import { OrderRequest } from './order-request/order-request.entity';
 
 @Module({
   imports: [
@@ -20,7 +22,7 @@ import { OrderRequestModule } from './orderRequest/orderRequest.module';
       username: 'root',
       password: 'password',
       database: 'postgres',
-      entities: [UserPF, UserPJ, Category, OrderRequest],
+      entities: [UserPF, UserPJ, Category, Order, OrderRequest],
       synchronize: true,
     }),
     JwtModule.register({
@@ -31,6 +33,7 @@ import { OrderRequestModule } from './orderRequest/orderRequest.module';
     UserPJModule,
     AuthModule,
     CategoriesModule,
+    OrderModule,
     OrderRequestModule,
   ],
 })

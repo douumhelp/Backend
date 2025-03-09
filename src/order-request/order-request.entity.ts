@@ -9,16 +9,28 @@ export enum OrderStatus {
   REJECTED = 'Recusado',
 }
 
-@Entity('order_request')
+@Entity('order-request')
 export class OrderRequest {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column({ length: 100 })
+  orderName: string
+
   @Column({ length: 300 })
   description: string;
 
+  @Column()
+  address: string
+
   @Column({ type: 'decimal', precision: 10, scale: 2 })
-  price: number;
+  maxValue: number;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  minValue: number;
+
+  @Column({ type: 'timestamp', nullable: true })
+  scheduledDate: Date | null; 
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   requestDate: Date;
@@ -30,10 +42,10 @@ export class OrderRequest {
   })
   status: OrderStatus;
 
-  @ManyToOne(() => UserPF, (userPF) => userPF.orderRequests)
+  @ManyToOne(() => UserPF, (userPF) => userPF.order)
   userPF: UserPF;
 
-  @ManyToOne(() => UserPJ, (userPJ) => userPJ.orderRequests)
+  @ManyToOne(() => UserPJ, (userPJ) => userPJ.order)
   userPJ: UserPJ;
 
   @ManyToOne(() => Category)

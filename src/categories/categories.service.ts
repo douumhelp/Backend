@@ -115,7 +115,12 @@ export class CategoriesService {
   }
 
   async onModuleInit() {
-    const fixedCategories = ['Encanamento', 'Eletrônicos', 'Eletrodomésticos'];
+    const fixedCategories = ["Serviço Domestico", "Serviços de Sofware", "Serviço online", "Serviço veicular", 
+    "Serviço de Pet", "Serviço humano", "Serviços Comercial", "Outros", "Encanador", 
+    "Programação Front End", "Programador Backend", "Editor de Video", "Editor de Imagem", 
+    "Gestão de Projeto", "Redator", "Mecanico De Carro", "Manobrista", "Eletrica Mecanica", 
+    "Cuidador de Pet", "Hospedagem de Pet", "Vacinação de Pet", "Cuidador de Idosos", 
+    "Cuidador de criança", "Professor Ensino Fundamental I", "Vendedor", "Diarista Comercial", "Segurança"];
     for (const name of fixedCategories) {
       const categoryExists = await this.categoryRepository.findOne({ where: { name } });
       if (!categoryExists) {

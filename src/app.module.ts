@@ -11,6 +11,7 @@ import { Category } from './categories/category.entity';
 import { Order } from './order/order.entity';
 import { OrderModule } from './order/order.module';
 import { OrderRequestModule } from './order-request/order-request.module';
+import { OrderRequest } from './order-request/order-request.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { OrderRequestModule } from './order-request/order-request.module';
       username: 'root',
       password: 'password',
       database: 'postgres',
-      entities: [UserPF, UserPJ, Category, Order],
+      entities: [UserPF, UserPJ, Category, Order, OrderRequest],
       synchronize: true,
     }),
     JwtModule.register({

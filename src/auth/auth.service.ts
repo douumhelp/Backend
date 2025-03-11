@@ -18,30 +18,31 @@ export class AuthService {
 
   async registerPF(dto: RegisterAuthPFDto) {
     console.log('DTO recebido para registro:', dto);
-    console.log('Senha recebida para hash:', dto.hashPassword);
   
-    const userExists = await this.userPFService.findByEmail(dto.email);
-    if (userExists) {
+    const userPFExists = await this.userPFService.findByEmail(dto.email);
+    const userPJExists = await this.userPJService.findByEmail(dto.email);
+  
+    if (userPFExists || userPJExists) {
       throw new ConflictException('E-mail já cadastrado!');
     }
   
     console.log('Usuário não encontrado, continuando com registro.');
   
     const user = await this.userPFService.createUserPF(dto);
-
     console.log('Usuário cadastrado com sucesso:', user);
+  
     return { message: 'Cadastro realizado com sucesso!', user };
   }
-  
 
   async registerPJ(dto: RegisterAuthPJDto) {
-    const userExists = await this.userPJService.findByEmail(dto.email);
-    if (userExists) {
+    const userPFExists = await this.userPFService.findByEmail(dto.email);
+    const userPJExists = await this.userPJService.findByEmail(dto.email);
+  
+    if (userPFExists || userPJExists) {
       throw new ConflictException('E-mail já cadastrado!');
     }
-
+  
     const user = await this.userPJService.createUserPJ(dto);
-
     return { message: 'Cadastro realizado com sucesso!', user };
   }
 

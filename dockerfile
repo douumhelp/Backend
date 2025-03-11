@@ -18,6 +18,7 @@ RUN npm run build
 
 # Expõe a porta
 EXPOSE 3000
+EXPOSE 3002
 
 # Inicia a aplicação
 CMD ["npm", "run", "start:prod"]

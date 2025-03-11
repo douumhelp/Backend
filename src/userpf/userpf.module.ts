@@ -13,6 +13,6 @@ import { OrderRequestModule } from 'src/orderRequest/orderRequest.module';
     forwardRef(() => OrderRequestModule), 
   ],
   providers: [UserPFService],
-  exports: [UserPFService],  
+  exports: [UserPFService, TypeOrmModule],  
 })
 export class UserPFModule {}

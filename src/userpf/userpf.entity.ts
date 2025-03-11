@@ -1,3 +1,4 @@
+import { Message } from 'src/chat/message.entity';
 import { OrderRequest } from 'src/orderRequest/orderRequest.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
@@ -29,4 +30,7 @@ export class UserPF {
 
   @OneToMany(() => OrderRequest, (orderRequest) => orderRequest.userPF)
   orderRequests: OrderRequest[];
+
+  @OneToMany(() => Message, (message) => message.senderPF)
+  sentMessages: Message[];
 }

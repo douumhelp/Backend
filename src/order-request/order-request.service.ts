@@ -50,4 +50,20 @@ export class OrderRequestService {
     return this.orderRequestRepository.save(orderReq)
   }
 
+  async updateOrderRequestStatus(id: string, updateOrderDto: UpdateOrderRequestDto): Promise<OrderRequest> {
+      const orderRequest = await this.orderRequestRepository.findOne({ where: { id } });
+      if (!orderRequest) {
+        throw new NotFoundException('Order not found');
+      }
+  
+  
+      orderRequest.status = updateOrderDto.status;
+      return this.orderRequestRepository.save(orderRequest);
+    }
+
+  async getAllOrderRequest(): Promise<OrderRequest[]>{
+    return this.orderRequestRepository.find({
+      relations: ['userPF', 'category'],
+    });
+  }
 }

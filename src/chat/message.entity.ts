@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 import { UserPF } from '../userpf/userpf.entity';
 import { UserPJ } from '../userpj/userpj.entity';
+import { DateTransformer } from 'src/common/transformers/DateTransformer';
 
 @Entity('chat_message')
 export class Message {
@@ -22,6 +23,6 @@ export class Message {
   @ManyToOne(() => UserPJ, { eager: true, nullable: true })
   receiverPJ: UserPJ | null;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp', transformer: new DateTransformer() }) 
   sentAt: Date;
 }

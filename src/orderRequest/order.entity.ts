@@ -2,7 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { UserPF } from '../userpf/userpf.entity';
 import { UserPJ } from '../userpj/userpj.entity';
 import { Category } from '../categories/category.entity';
-import { DateTransformer } from 'src/common/transformers/DateTransformer';
 
 export enum OrderStatus {
   PENDING = 'Pendente',
@@ -10,8 +9,8 @@ export enum OrderStatus {
   REJECTED = 'Recusado',
 }
 
-@Entity('order_request')
-export class OrderRequest {
+@Entity('order')
+export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -21,7 +20,7 @@ export class OrderRequest {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', transformer: new DateTransformer() })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   requestDate: Date;
 
   @Column({
@@ -31,10 +30,10 @@ export class OrderRequest {
   })
   status: OrderStatus;
 
-  @ManyToOne(() => UserPF, (userPF) => userPF.orderRequests)
+  @ManyToOne(() => UserPF, (userPF) => userPF.order)
   userPF: UserPF;
 
-  @ManyToOne(() => UserPJ, (userPJ) => userPJ.orderRequests)
+  @ManyToOne(() => UserPJ, (userPJ) => userPJ.order)
   userPJ: UserPJ;
 
   @ManyToOne(() => Category)

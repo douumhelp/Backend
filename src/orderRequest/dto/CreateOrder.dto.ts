@@ -1,6 +1,6 @@
 import { IsString, IsDecimal, IsUUID, IsEnum, MaxLength } from 'class-validator';
 
-export class CreateOrderRequestDto {
+export class CreateOrderDto {
   @IsString()
   @MaxLength(300)
   description: string;

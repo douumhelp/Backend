@@ -8,8 +8,8 @@ import { UserPJ } from './userpj/userpj.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/category.entity';
-import { OrderRequest } from './orderRequest/orderRequest.entity';
-import { OrderRequestModule } from './orderRequest/orderRequest.module';
+import { Order } from './orderRequest/order.entity';
+import { OrderModule } from './orderRequest/order.module';
 import { Message } from './chat/message.entity';
 import { ChatModule } from './chat/chat.module';
 
@@ -17,14 +17,13 @@ import { ChatModule } from './chat/chat.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'db',
+      host: 'localhost',
       port: 5432,
       username: 'root',
       password: 'password',
       database: 'postgres',
-      entities: [UserPF, UserPJ, Category, OrderRequest, Message],
+      entities: [UserPF, UserPJ, Category, Order, Message],
       synchronize: true,
-      logging: true,
     }),
     JwtModule.register({
       secret: "XU2U9Fxq7QdfXG+uL5yPz4DkMvZQkXr8Ml79pWQcM1os2dNw/txEaDp2k6iG9+uh" , 
@@ -34,7 +33,7 @@ import { ChatModule } from './chat/chat.module';
     UserPJModule,
     AuthModule,
     CategoriesModule,
-    OrderRequestModule,
+    OrderModule,
     ChatModule,
   ],
 })

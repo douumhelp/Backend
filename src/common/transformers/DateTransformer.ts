@@ -6,7 +6,7 @@ export class DateTransformer implements ValueTransformer {
     return value ? moment(value).tz('America/Sao_Paulo').toDate() : value;
   }
 
-  from(value: Date): Date {
-    return value ? moment(value).tz('America/Sao_Paulo').toDate() : value;
+  from(value: Date): string {
+    return value ? moment.utc(value).tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss') : '';
   }
 }

@@ -11,6 +11,9 @@ export class Message {
   @Column()
   content: string;
 
+  @Column({ nullable: true }) // URL do arquivo
+  fileUrl?: string;
+
   @ManyToOne(() => UserPF, { eager: true, nullable: true }) 
   senderPF: UserPF | null;
 

@@ -6,7 +6,7 @@ import { CreateMessageDto } from './dto/CreateMessage.dto';
 import { UserPF } from '../userpf/userpf.entity';
 import { UserPJ } from '../userpj/userpj.entity';
 import { ChatGateway } from './chat.gateway';
-import * as moment from 'moment-timezone';
+import * as fs from 'fs';
 
 @Injectable()
 export class ChatService {
@@ -65,6 +65,13 @@ export class ChatService {
   
     return savedMessage;
   }  
+
+  private async saveFile(fileBase64: string): Promise<string> {
+    const buffer = Buffer.from(fileBase64, 'base64');
+    const filePath = `uploads/${Date.now()}.png`; 
+    await fs.promises.writeFile(filePath, buffer);
+    return filePath; 
+  }
 
   async updateMessageContent(id: string, content: string): Promise<Message> {
     const message = await this.messageRepository.findOne({ where: { id } });

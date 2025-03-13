@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Query, Param, NotFoundException, Patch, ValidationPipe, UseGuards, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Param, NotFoundException, Patch, ValidationPipe, UseGuards, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { CreateMessageDto } from './dto/CreateMessage.dto';
 import { Message } from './message.entity';
 import { UpdateMessageDto } from './dto/UpdateMessage.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { extname } from 'path';
+import { diskStorage } from 'multer';
 
 @Controller('chat')
 @UseGuards(JwtAuthGuard)
@@ -13,6 +16,24 @@ export class ChatController {
   @Post('send')
   async sendMessage(@Body() dto: CreateMessageDto) {
     return this.chatService.createMessage(dto);
+  }
+
+  @Post('upload')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, callback) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          callback(null, `${uniqueSuffix}${ext}`);
+        },
+      }),
+    }),
+  )
+  uploadFile(@UploadedFile() file: Express.Multer.File, @Body() body: any) {
+    console.log('Arquivo recebido:', file);
+    return { filePath: `/uploads/${file.filename}` };
   }
 
   //esse Get é essencial para o próximo Get('message/:id'), Apesar de ele retornar um array vazio, favor não apagar.

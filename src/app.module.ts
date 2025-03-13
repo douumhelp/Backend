@@ -10,8 +10,9 @@ import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/category.entity';
 import { Order } from './order/order.entity';
 import { OrderModule } from './order/order.module';
-import { OrderRequestModule } from './order-request/order-request.module';
-import { OrderRequest } from './order-request/order-request.entity';
+import { ChatModule } from './chat/chat.module';
+import { Message } from './chat/message.entity';
+
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { OrderRequest } from './order-request/order-request.entity';
       username: 'root',
       password: 'password',
       database: 'postgres',
-      entities: [UserPF, UserPJ, Category, Order, OrderRequest],
+      entities: [UserPF, UserPJ, Category, Order, Message],
       synchronize: true,
     }),
     JwtModule.register({
@@ -34,7 +35,7 @@ import { OrderRequest } from './order-request/order-request.entity';
     AuthModule,
     CategoriesModule,
     OrderModule,
-    OrderRequestModule,
+    ChatModule,
   ],
 })
 export class AppModule {}

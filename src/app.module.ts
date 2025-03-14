@@ -12,6 +12,7 @@ import { Order } from './order/order.entity';
 import { OrderModule } from './order/order.module';
 import { OrderRequestModule } from './order-request/order-request.module';
 import { OrderRequest } from './order-request/order-request.entity';
+import { OrderDealModule } from './order-deal/order-deal.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { OrderRequest } from './order-request/order-request.entity';
     CategoriesModule,
     OrderModule,
     OrderRequestModule,
+    OrderDealModule,
   ],
 })
 export class AppModule {}

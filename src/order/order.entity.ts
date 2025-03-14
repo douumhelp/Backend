@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
 import { UserPF } from '../userpf/userpf.entity';
 import { UserPJ } from '../userpj/userpj.entity';
 import { Category } from '../categories/category.entity';
+import { OrderDeal } from 'src/order-deal/order-deal.entity';
 
 export enum OrderStatus {
   PENDING = 'Pendente',
@@ -38,4 +39,7 @@ export class Order {
 
   @ManyToOne(() => Category)
   category: Category;
+
+  @OneToOne(() => OrderDeal, orderDeal => orderDeal.order)
+      ordelDeal: OrderDeal[];
 }

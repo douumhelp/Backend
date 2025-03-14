@@ -1,0 +1,34 @@
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { OrderDealService } from './order-deal.service';
+import { CreateOrderDealDto } from './dto/create-order-deal.dto';
+import { UpdateOrderDealDto } from './dto/update-order-deal.dto';
+
+@Controller('order-deal')
+export class OrderDealController {
+  constructor(private readonly orderDealService: OrderDealService) {}
+
+  @Post()
+  create(@Body() createOrderDealDto: CreateOrderDealDto) {
+    return this.orderDealService.create(createOrderDealDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.orderDealService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.orderDealService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateOrderDealDto: UpdateOrderDealDto) {
+    return this.orderDealService.update(+id, updateOrderDealDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.orderDealService.remove(+id);
+  }
+}

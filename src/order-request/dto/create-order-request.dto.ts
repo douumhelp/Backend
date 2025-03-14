@@ -1,4 +1,4 @@
-import { IsString, IsDecimal, IsUUID, IsEnum, MaxLength } from 'class-validator';
+import { IsString, IsDecimal, IsUUID, IsEnum, MaxLength, IsNotEmpty } from 'class-validator';
 import { Decimal128 } from 'typeorm';
 
 
@@ -7,6 +7,7 @@ export class CreateOrderRequestDto {
     orderName: string;
 
     @IsString()
+    @IsNotEmpty()
     description: string;
 
     @IsDecimal()

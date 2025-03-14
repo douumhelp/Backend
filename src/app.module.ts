@@ -13,6 +13,7 @@ import { OrderModule } from './order/order.module';
 import { OrderRequestModule } from './order-request/order-request.module';
 import { OrderRequest } from './order-request/order-request.entity';
 import { OrderDealModule } from './order-deal/order-deal.module';
+import { OrderDeal } from './order-deal/order-deal.entity';
 
 @Module({
   imports: [
@@ -23,11 +24,11 @@ import { OrderDealModule } from './order-deal/order-deal.module';
       username: 'root',
       password: 'password',
       database: 'postgres',
-      entities: [UserPF, UserPJ, Category, Order, OrderRequest],
+      entities: [UserPF, UserPJ, Category, Order, OrderRequest, OrderDeal],
       synchronize: true,
     }),
     JwtModule.register({
-      secret: "XU2U9Fxq7QdfXG+uL5yPz4DkMvZQkXr8Ml79pWQcM1os2dNw/txEaDp2k6iG9+uh" , 
+      secret: "XU2U9Fxq7QdfXG+uL5yPz4DkMvZQkXr8Ml79pWQcM1os2dNw/txEaDp2k6iG9+uh", 
       signOptions: { expiresIn: '60m' },  
     }),
     UserPFModule,

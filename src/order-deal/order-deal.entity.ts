@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { Entity, Column, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
 import { UserPF } from "../userpf/userpf.entity";
 import { UserPJ } from "../userpj/userpj.entity";
 import { Category } from "../categories/category.entity";
@@ -13,10 +13,8 @@ export enum ClientAcceptance {
 
 @Entity()
 export class OrderDeal {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: string;
-
-    
 
     @Column({
         type: "enum",
@@ -31,6 +29,9 @@ export class OrderDeal {
     @Column({ type: 'timestamp', nullable: true })
     scheduledDate: Date | null; 
 
+    @Column({ type: 'int', nullable: false})
+    estimatedDuration: number; //duração estimada do serviço em minutos
+
     @ManyToOne(() => UserPJ, userPJ => userPJ.orderDeals)
     userPJ: UserPJ;
 
@@ -40,6 +41,7 @@ export class OrderDeal {
     @ManyToOne(() => OrderRequest, orderRequest => orderRequest.orderDeals)
     orderRequest: OrderRequest;
 
-    @OneToOne(() => Order, order => order.ordelDeal)
-    order: Order[];
+    @OneToOne(() => Order)
+    @JoinColumn({ name: 'order_id' }) // Define a coluna de junção
+    order: Order;
 }

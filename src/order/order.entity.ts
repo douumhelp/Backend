@@ -40,6 +40,6 @@ export class Order {
   @ManyToOne(() => Category)
   category: Category;
 
-  @OneToOne(() => OrderDeal, orderDeal => orderDeal.order)
-      ordelDeal: OrderDeal[];
+  @OneToOne(() => OrderDeal, (orderDeal) => orderDeal.order)
+  deal: OrderDeal;
 }

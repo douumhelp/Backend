@@ -59,6 +59,10 @@ export class ChatService {
       message.receiverPJ = receiverPJ;
     }
 
+    if (dto.file) {
+      message.filePath = await this.saveFile(dto.file, 'image/png'); 
+    }
+
     const savedMessage = await this.messageRepository.save(message);
   
     this.chatGateway.server.to(dto.receiverId).emit('receiveMessage', savedMessage);
@@ -66,13 +70,16 @@ export class ChatService {
     return savedMessage;
   }  
 
-  private async saveFile(fileBase64: string): Promise<string> {
+  private async saveFile(fileBase64: string, mimeType: string): Promise<string> {
     const buffer = Buffer.from(fileBase64, 'base64');
-    const filePath = `uploads/${Date.now()}.png`; 
+    const extension = mimeType.split('/')[1]; 
+    const filePath = `uploads/${Date.now()}.${extension}`; 
+  
     await fs.promises.writeFile(filePath, buffer);
+  
     return filePath; 
   }
-
+  
   async updateMessageContent(id: string, content: string): Promise<Message> {
     const message = await this.messageRepository.findOne({ where: { id } });
 

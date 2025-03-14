@@ -115,12 +115,50 @@ export class CategoriesService {
   }
 
   async onModuleInit() {
-    const fixedCategories = ["Serviço Domestico", "Serviços de Sofware", "Serviço online", "Serviço veicular", 
-    "Serviço de Pet", "Serviço humano", "Serviços Comercial", "Outros", "Encanador", 
-    "Programação Front End", "Programador Backend", "Editor de Video", "Editor de Imagem", 
-    "Gestão de Projeto", "Redator", "Mecanico De Carro", "Manobrista", "Eletrica Mecanica", 
-    "Cuidador de Pet", "Hospedagem de Pet", "Vacinação de Pet", "Cuidador de Idosos", 
-    "Cuidador de criança", "Professor Ensino Fundamental I", "Vendedor", "Diarista Comercial", "Segurança"];
+    const fixedCategories = [ 
+
+      "Babá",
+      "Limpeza Residencial",
+      "Conserto de Eletrodomésticos",
+      "Reparos Elétricos",
+      "Transporte de Pequenas Cargas",
+      "Passeio com Cães",
+      "Pet Sitter",
+      "Corte de Cabelo",
+      "Massoterapia",
+      "Fisioterapia",
+      "Personal Organizer",
+      "Acompanhante para Idosos",
+      "Consultoria",
+      "Manutenção de Ar Condicionado",
+      "Lavagem de Carros",
+      "Pintura Residencial",
+      "Serviço de Buffet",
+      "Encanador",
+      "Manobrista",
+      "Diarista Comercial",
+      "Segurança",
+      "Pedreiro",
+      "Fotografia e Filmagem",
+      "Professor Particular",
+      "Cozinheiro",
+      "Jardinagem",
+      "ÁudioVisual",
+      "Acompanhante",
+      "Produtor Musical(DJ)",
+      "Instalador de Eletrônicos",
+      "Personal Trainer",
+      "Contador",
+      "Cuidador de Pessoa com Deficiência",
+      "Manutenção de Pisicna",
+      "Manicure",
+      "Mecãnico",
+      "Carpinteiro e Marceneiro",
+      "Soldador",
+      "Técnido de TI",
+      "Agência de Frete"
+  
+    ];
     for (const name of fixedCategories) {
       const categoryExists = await this.categoryRepository.findOne({ where: { name } });
       if (!categoryExists) {

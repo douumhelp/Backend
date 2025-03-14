@@ -43,8 +43,8 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     try {
       const decoded = await this.jwtService.verifyAsync(token);
       console.log('Token decodificado:', decoded); 
-      client.user = { id: decoded.id };
-      console.log(`Client connected: ${client.id}, User ID: ${decoded.id}`);
+      client.user = { id: decoded.sub }; 
+      console.log(`Client connected: ${client.id}, User ID: ${decoded.sub}`);
     } catch (error) {
       console.error('Authentication error:', error);
       client.disconnect();

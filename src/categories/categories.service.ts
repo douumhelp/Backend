@@ -117,48 +117,84 @@ export class CategoriesService {
   async onModuleInit() {
     const fixedCategories = [ 
 
-      "Babá",
-      "Limpeza Residencial",
-      "Conserto de Eletrodomésticos",
-      "Reparos Elétricos",
-      "Transporte de Pequenas Cargas",
-      "Passeio com Cães",
-      "Pet Sitter",
-      "Corte de Cabelo",
-      "Massoterapia",
-      "Fisioterapia",
-      "Personal Organizer",
-      "Acompanhante para Idosos",
-      "Consultoria",
-      "Manutenção de Ar Condicionado",
-      "Lavagem de Carros",
-      "Pintura Residencial",
-      "Serviço de Buffet",
-      "Encanador",
-      "Manobrista",
-      "Diarista Comercial",
-      "Segurança",
-      "Pedreiro",
-      "Fotografia e Filmagem",
-      "Professor Particular",
-      "Cozinheiro",
-      "Jardinagem",
-      "ÁudioVisual",
-      "Acompanhante",
-      "Produtor Musical(DJ)",
-      "Instalador de Eletrônicos",
-      "Personal Trainer",
-      "Contador",
-      "Cuidador de Pessoa com Deficiência",
-      "Manutenção de Pisicna",
-      "Manicure",
-      "Mecãnico",
-      "Carpinteiro e Marceneiro",
-      "Soldador",
-      "Técnido de TI",
-      "Agência de Frete"
-  
-    ];
+//Serviço Doméstico
+"Encanador",
+"Eletricista",
+"Pintor",
+"Pedreiro",
+"Limpeza Residencial",
+"Jardinagem",
+"Instalador de Eletrônicos",
+"Reparos Elétricos",
+"Carpinteiro",
+"Manutenção de Piscina",
+"Manutenção de Ar Condicionado",
+"Soldador",
+"Conserto de Eletrodomésticos",
+
+//Serviços de TI
+"Programação Front End",
+"Programador Backend",
+"Gestão de Projeto",
+"Suporte em TI",
+"Testador de Software",
+"Analista de Software",
+"Consultor de Software",
+
+//Serviço Online
+"Editor de Vídeo",
+"Editor de Imagem",
+"Redador",
+"Design de Mídia",
+"ÁudioVisual",
+"Áudio",
+
+//Serviço Veicular
+"Mecânico de Carro",
+"Manobrista",
+"Lavagem de Carros",
+"Mecânico de Moto",
+
+//Serviço de Pet
+"Cuidador de Pet",
+"Hospedagem de Pet",
+"Vacinação de Pet",
+"Adestrador",
+"Tosador",
+"Passeio com Cães",
+
+//Serviço Humano
+"Cuidador de Idosos",
+"Cuidador de Criança",
+"Professor Particular",
+"Massoterapia",
+"Fisioterapia",
+"Personal Organizer",
+"Cuidador de Pessoa com Deficiência",
+"Personal Training",
+"Acompanhante",
+"Manicure",
+
+//Serviços Comerciais
+"Vendedor",
+"Diarista Comercial",
+"Segurança",
+"Garçom",
+"Cozinheiro",
+"Tradutor",
+"Fotografia e Filmagem",
+"Contador",
+"Produtor de Festa",
+"Serviço de Buffet",
+"Produtor Musical (DJ)",
+
+//Fretes
+"Transporte de Cargas",
+"Carona",
+"Abastecedor",
+      
+];
+
     for (const name of fixedCategories) {
       const categoryExists = await this.categoryRepository.findOne({ where: { name } });
       if (!categoryExists) {

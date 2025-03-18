@@ -1,11 +1,14 @@
 import { 
-  Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe 
+  Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, 
+  UseGuards
 } from '@nestjs/common';
 import { OrderDealService } from './order-deal.service';
 import { CreateOrderDealDto } from './dto/create-order-deal.dto';
 import { UpdateOrderDealDto } from './dto/update-order-deal.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('order-deal')
+@UseGuards(JwtAuthGuard)
 export class OrderDealController {
   constructor(private readonly orderDealService: OrderDealService) {}
 

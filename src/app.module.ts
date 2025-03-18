@@ -14,6 +14,9 @@ import { OrderRequestModule } from './order-request/order-request.module';
 import { OrderRequest } from './order-request/order-request.entity';
 import { OrderDealModule } from './order-deal/order-deal.module';
 import { OrderDeal } from './order-deal/order-deal.entity';
+import { ChatModule } from './chat/chat.module';
+import { Message } from './chat/message.entity';
+
 
 @Module({
   imports: [
@@ -24,7 +27,7 @@ import { OrderDeal } from './order-deal/order-deal.entity';
       username: 'root',
       password: 'password',
       database: 'postgres',
-      entities: [UserPF, UserPJ, Category, Order, OrderRequest, OrderDeal],
+      entities: [UserPF, UserPJ, Category, Order, OrderRequest, OrderDeal, Message],
       synchronize: true,
     }),
     JwtModule.register({
@@ -38,6 +41,7 @@ import { OrderDeal } from './order-deal/order-deal.entity';
     OrderModule,
     OrderRequestModule,
     OrderDealModule,
+    ChatModule,
   ],
 })
 export class AppModule {}

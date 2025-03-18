@@ -17,15 +17,17 @@ import { OrderModule } from 'src/order/order.module';
   imports: [
     TypeOrmModule.forFeature([UserPF, UserPJ]),
     JwtModule.register({
-      secret: "XU2U9Fxq7QdfXG+uL5yPz4DkMvZQkXr8Ml79pWQcM1os2dNw/txEaDp2k6iG9+uh",  
-      signOptions: { expiresIn: '60m' },  
+      secret: "XU2U9Fxq7QdfXG+uL5yPz4DkMvZQkXr8Ml79pWQcM1os2dNw/txEaDp2k6iG9+uh",
+      signOptions: { expiresIn: '60m' },
     }),
     forwardRef(() => UserPFModule),
     forwardRef(() => UserPJModule),
     forwardRef(() => CategoriesModule),
-    forwardRef(() => OrderModule),  
+    forwardRef(() => OrderModule),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, UserPFService, UserPJService],
+  exports: [AuthService, JwtModule], 
 })
 export class AuthModule {}
+

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { UserPF } from '../userpf/userpf.entity';
 import { UserPJ } from '../userpj/userpj.entity';
 import { Category } from '../categories/category.entity';
@@ -10,16 +10,28 @@ export enum OrderStatus {
   REJECTED = 'Recusado',
 }
 
-@Entity('order')
-export class Order {
+@Entity('order-request')
+export class OrderRequest {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({ length: 100 })
+  orderName: string
 
   @Column({ length: 300 })
   description: string;
 
+  @Column()
+  address: string
+
   @Column({ type: 'decimal', precision: 10, scale: 2 })
-  price: number;
+  maxValue: number;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  minValue: number;
+
+  @Column({ type: 'timestamp', nullable: true })
+  scheduledDate: Date | null; 
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   requestDate: Date;
@@ -40,6 +52,6 @@ export class Order {
   @ManyToOne(() => Category)
   category: Category;
 
-  @OneToOne(() => OrderDeal, (orderDeal) => orderDeal.order)
-  deal: OrderDeal;
+  @OneToMany(() => OrderDeal, (orderDeal) => orderDeal.orderRequest)
+  orderDeals: OrderDeal[];
 }

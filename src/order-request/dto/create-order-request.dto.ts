@@ -4,6 +4,7 @@ import { Decimal128 } from 'typeorm';
 
 export class CreateOrderRequestDto {
     @IsString()
+    @IsNotEmpty()
     orderName: string;
 
     @IsString()
@@ -17,12 +18,15 @@ export class CreateOrderRequestDto {
     maxValue: number;
 
     @IsUUID()
+    @IsNotEmpty()
     userPFId: string;
 
     @IsString()
+    @IsNotEmpty()
     categoryId: string;
 
     @IsString()
+    @IsNotEmpty()
     address: string;
 
 }

@@ -30,4 +30,5 @@ export class UserPF {
 
   @OneToMany(() => Message, (message) => message.senderPF)
   sentMessages: Message[];
+
 }

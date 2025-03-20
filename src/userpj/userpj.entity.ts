@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMan
 import { Category } from '../categories/category.entity';
 import { Order } from 'src/order/order.entity';
 import { Message } from 'src/chat/message.entity';
+import { Scheduling } from 'src/scheduling/scheduling.entity';
 
 @Entity('user_pj')
 export class UserPJ {
@@ -45,4 +46,7 @@ export class UserPJ {
 
   @OneToMany(() => Message, (message) => message.senderPJ)
   sentMessages: Message[];
+
+  @OneToMany(() => Scheduling, (scheduling) => scheduling.userPJ)
+  scheduling: Scheduling[];
 } 

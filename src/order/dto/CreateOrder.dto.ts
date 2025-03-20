@@ -1,11 +1,13 @@
-import { IsString, IsDecimal, IsUUID, IsEnum, MaxLength } from 'class-validator';
+import { IsString, IsUUID, MaxLength, IsNumber, IsPositive, IsEnum } from 'class-validator';
+import { OrderStatus } from '../order.entity'; 
 
 export class CreateOrderDto {
   @IsString()
   @MaxLength(300)
   description: string;
 
-  @IsDecimal()
+  @IsNumber()
+  @IsPositive()
   price: number;
 
   @IsUUID()
@@ -16,4 +18,9 @@ export class CreateOrderDto {
 
   @IsUUID()
   categoryId: string;
+
+  @IsEnum(OrderStatus)
+  status: OrderStatus = OrderStatus.PENDING; 
+
+  startTime?: Date;
 }

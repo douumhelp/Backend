@@ -12,6 +12,8 @@ import { Order } from './order/order.entity';
 import { OrderModule } from './order/order.module';
 import { ChatModule } from './chat/chat.module';
 import { Message } from './chat/message.entity';
+import { Scheduling } from './scheduling/scheduling.entity';
+import { SchedulingModule } from './scheduling/scheduling.module';
 
 
 @Module({
@@ -23,7 +25,7 @@ import { Message } from './chat/message.entity';
       username: 'root',
       password: 'password',
       database: 'postgres',
-      entities: [UserPF, UserPJ, Category, Order, Message],
+      entities: [UserPF, UserPJ, Category, Order, Message, Scheduling],
       synchronize: true,
     }),
     JwtModule.register({
@@ -36,6 +38,7 @@ import { Message } from './chat/message.entity';
     CategoriesModule,
     OrderModule,
     ChatModule,
+    SchedulingModule
   ],
 })
 export class AppModule {}

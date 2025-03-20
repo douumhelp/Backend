@@ -9,15 +9,18 @@ import { Category } from '../categories/category.entity';
 import { UserPJModule } from 'src/userpj/userpj.module';
 import { UserPFModule } from 'src/userpf/userpf.module';
 import { CategoriesModule } from 'src/categories/categories.module';
+import { Scheduling } from 'src/scheduling/scheduling.entity';
+import { SchedulingService } from 'src/scheduling/scheduling.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Order, UserPF, UserPJ, Category]),
+  imports: [TypeOrmModule.forFeature([Order, UserPF, UserPJ, Category, Scheduling]),
     forwardRef(() => UserPJModule), 
     forwardRef(() => UserPFModule), 
     forwardRef(() => CategoriesModule),
+    forwardRef(() => Scheduling)
 ],
   controllers: [OrderController],
-  providers: [OrderService],
+  providers: [OrderService, SchedulingService],
   exports: [OrderService], 
 })
 export class OrderModule {}

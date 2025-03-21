@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typ
 import { UserPF } from '../userpf/userpf.entity';
 import { UserPJ } from '../userpj/userpj.entity';
 import { Category } from '../categories/category.entity';
-import { OrderDeal } from 'src/order-deal/order-deal.entity';
+import { OrderDeal } from 'src/orderDeal/orderDeal.entity';
 
 export enum OrderStatus {
   ACCEPTED = 'Aceito',

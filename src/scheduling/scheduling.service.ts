@@ -19,14 +19,17 @@ export class SchedulingService {
       select: ['startTime'],
     });
   
-    const scheduledHours = new Set(scheduledTimes.map((s) => s.startTime.getHours()));
+    console.log("[DEBUG] Horários agendados no banco:", scheduledTimes);
   
-    const availableTimes: Date[] = []; 
+    const scheduledTimestamps = new Set(scheduledTimes.map((s) => s.startTime.getTime()));
+  
+    const availableTimes: Date[] = [];
   
     for (let hour = 0; hour < 24; hour++) {
-      if (!scheduledHours.has(hour)) {
-        const timeSlot = new Date();
-        timeSlot.setHours(hour, 0, 0, 0);
+      const timeSlot = new Date();
+      timeSlot.setHours(hour, 0, 0, 0);
+  
+      if (!scheduledTimestamps.has(timeSlot.getTime())) {
         availableTimes.push(timeSlot);
       }
     }
@@ -73,22 +76,29 @@ export class SchedulingService {
   }
 
   async bookTimeSlot(userPJId: string, startTime: Date) {
+    console.log(`[DEBUG] Tentando agendar horário para o PJ: ${userPJId}, Horário: ${startTime.toISOString()}`);
+  
     const existingSchedule = await this.schedulingRepository.findOne({
       where: { userPJ: { id: userPJId }, startTime },
     });
   
     if (existingSchedule) {
-      throw new Error('Time slot already booked');
+      console.error("[ERRO] Horário já está agendado:", existingSchedule);
+      throw new Error("Time slot already booked");
     }
   
     const userPJ = await this.userPJRepository.findOne({ where: { id: userPJId } });
-    if (!userPJ) throw new NotFoundException('User PJ not found');
+    if (!userPJ) throw new NotFoundException("User PJ not found");
   
     const scheduling = this.schedulingRepository.create({
       startTime,
       userPJ,
     });
   
+    console.log("[DEBUG] Salvando novo agendamento:", scheduling);
+  
     await this.schedulingRepository.save(scheduling);
+  
+    console.log("[DEBUG] Agendamento salvo com sucesso!");
   }
 }

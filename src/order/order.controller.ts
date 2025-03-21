@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, Put, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Param, Put, UseGuards, Get } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'; 
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/CreateOrder.dto';
@@ -24,5 +24,10 @@ export class OrderController {
     @CurrentUser() user: any, 
   ): Promise<Order> {
     return this.orderService.updateOrderStatus(id, updateOrderDto, user.id);
+  }
+
+  @Get()
+  async getAllOrders(){
+    return this.orderService.getAllOrders();
   }
 }

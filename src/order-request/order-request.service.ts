@@ -67,4 +67,18 @@ export class OrderRequestService {
       relations: ['userPF', 'category'],
     });
   }
+
+  async findOne(id: string): Promise<OrderRequest> {
+    const orderRequest = await this.orderRequestRepository.findOne({
+      where: { id },
+      relations: ['userPF', 'userPJ', 'category', 'orderDeals'],
+    });
+  
+    if (!orderRequest) {
+      throw new NotFoundException(`OrderRequest com ID ${id} não encontrado`);
+    }
+  
+    return orderRequest;
+  }
+
 }

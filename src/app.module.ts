@@ -10,6 +10,10 @@ import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/category.entity';
 import { Order } from './order/order.entity';
 import { OrderModule } from './order/order.module';
+import { OrderRequestModule } from './order-request/order-request.module';
+import { OrderRequest } from './order-request/order-request.entity';
+import { OrderDealModule } from './order-deal/order-deal.module';
+import { OrderDeal } from './order-deal/order-deal.entity';
 import { ChatModule } from './chat/chat.module';
 import { Message } from './chat/message.entity';
 import { Scheduling } from './scheduling/scheduling.entity';
@@ -33,7 +37,7 @@ import { OrderRequestModule } from './orderRequest/orderRequest.module';
       synchronize: true,
     }),
     JwtModule.register({
-      secret: "XU2U9Fxq7QdfXG+uL5yPz4DkMvZQkXr8Ml79pWQcM1os2dNw/txEaDp2k6iG9+uh" , 
+      secret: "XU2U9Fxq7QdfXG+uL5yPz4DkMvZQkXr8Ml79pWQcM1os2dNw/txEaDp2k6iG9+uh", 
       signOptions: { expiresIn: '60m' },  
     }),
     UserPFModule,
@@ -41,6 +45,8 @@ import { OrderRequestModule } from './orderRequest/orderRequest.module';
     AuthModule,
     CategoriesModule,
     OrderModule,
+    OrderRequestModule,
+    OrderDealModule,
     ChatModule,
     SchedulingModule,
     OrderDealModule,

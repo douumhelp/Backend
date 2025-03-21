@@ -1,8 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { Category } from '../categories/category.entity';
 import { Order } from 'src/order/order.entity';
-import { OrderDeal } from 'src/order-deal/order-deal.entity';
+import { OrderDeal } from 'src/orderDeal/orderDeal.entity';
 import { Message } from 'src/chat/message.entity';
+import { Scheduling } from 'src/scheduling/scheduling.entity';
 
 @Entity('user_pj')
 export class UserPJ {
@@ -48,4 +49,7 @@ export class UserPJ {
   orderDeals: OrderDeal[];
   @OneToMany(() => Message, (message) => message.senderPJ)
   sentMessages: Message[];
+
+  @OneToMany(() => Scheduling, (scheduling) => scheduling.userPJ)
+  scheduling: Scheduling[];
 } 

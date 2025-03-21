@@ -7,9 +7,10 @@ import { UserPJ } from '../userpj/userpj.entity';
 import { Category } from '../categories/category.entity';
 import { OrderRequest } from '../order-request/order-request.entity';
 import { Order } from '../order/order.entity';
+import { OrderRequestModule } from 'src/order-request/order-request.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([OrderDeal, UserPJ, Category, OrderRequest, Order])],
+  imports: [TypeOrmModule.forFeature([OrderDeal, UserPJ, Category, OrderRequest, Order]), OrderRequestModule],
   controllers: [OrderDealController],
   providers: [OrderDealService],
   exports: [OrderDealService],

@@ -9,12 +9,15 @@ import { Category } from '../categories/category.entity';
 import { UserPJModule } from 'src/userpj/userpj.module';
 import { UserPFModule } from 'src/userpf/userpf.module';
 import { CategoriesModule } from 'src/categories/categories.module';
+import { OrderDeal } from 'src/order-deal/order-deal.entity';
+import { OrderDealModule } from 'src/order-deal/order-deal.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Order, UserPF, UserPJ, Category]),
+  imports: [TypeOrmModule.forFeature([Order,OrderDeal, UserPF, UserPJ, Category]),
     forwardRef(() => UserPJModule), 
     forwardRef(() => UserPFModule), 
     forwardRef(() => CategoriesModule),
+    forwardRef(() => OrderDealModule)
 ],
   controllers: [OrderController],
   providers: [OrderService],

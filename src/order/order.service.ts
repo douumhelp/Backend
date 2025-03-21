@@ -65,4 +65,8 @@ export class OrderService {
     order.status = updateOrderDto.status;
     return this.orderRepository.save(order);
   }
+
+  async getAllOrders(){
+    return this.orderRepository.find();
+  }
 }

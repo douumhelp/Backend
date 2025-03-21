@@ -30,5 +30,12 @@ export class OrderRequestController {
   async getAllOrderRequests(): Promise<OrderRequest[]> {
     return this.orderRequestService.getAllOrderRequest();
   }
+
+  @Get(':id')
+  async findOneById(@Param('id') id: string){
+    return this.orderRequestService.findOne(id)
+  }
+
+
   
 }

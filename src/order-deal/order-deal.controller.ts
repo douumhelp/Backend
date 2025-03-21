@@ -31,7 +31,7 @@ export class OrderDealController {
   @Patch(':id')
   @UsePipes(ValidationPipe)
   update(@Param('id') id: string, @Body() updateOrderDealDto: UpdateOrderDealDto) {
-    return this.orderDealService.update(id, updateOrderDealDto);
+      return this.orderDealService.update(id, updateOrderDealDto);
   }
 
   @Delete(':id')

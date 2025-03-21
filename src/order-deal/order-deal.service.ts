@@ -7,10 +7,12 @@ import { UpdateOrderDealDto } from './dto/update-order-deal.dto';
 import { UserPJ } from 'src/userpj/userpj.entity';
 import { OrderRequest } from '../order-request/order-request.entity';
 import { Order, OrderStatus } from 'src/order/order.entity';
+import { OrderRequestService } from 'src/order-request/order-request.service';
 
 @Injectable()
 export class OrderDealService {
   constructor(
+    private readonly orderRequestService: OrderRequestService,
     @InjectRepository(OrderDeal)
     private readonly orderDealRepository: Repository<OrderDeal>,
     @InjectRepository(UserPJ)
@@ -84,10 +86,19 @@ export class OrderDealService {
   
   async update(id: string, updateOrderDealDto: UpdateOrderDealDto): Promise<OrderDeal> {
     const orderDeal = await this.findOne(id);
-    Object.assign(orderDeal, updateOrderDealDto);
-    return await this.orderDealRepository.save(orderDeal);
-  }
 
+    const wasAccepted = orderDeal.clientAcceptance === 'accepted';
+    
+    Object.assign(orderDeal, updateOrderDealDto);
+
+    const updatedOrderDeal = await this.orderDealRepository.save(orderDeal);
+
+    if (!wasAccepted && updatedOrderDeal.clientAcceptance === 'accepted') {
+        await this.acceptOrderDeal(id);
+    }
+
+    return updatedOrderDeal;
+}
   
   async remove(id: string): Promise<void> {
     const result = await this.orderDealRepository.delete(id);
@@ -96,22 +107,38 @@ export class OrderDealService {
     }
   }
 
-  async acceptOrderDeal(id: string): Promise<Order> {
+  async acceptOrderDeal(id: string) {
+    console.log("[DEBUG] Iniciando acceptOrderDeal para OrderDeal ID:", id);
+
     const orderDeal = await this.findOne(id);
+    console.log("[DEBUG] OrderDeal encontrado:", orderDeal);
 
     if (orderDeal.clientAcceptance !== 'accepted') {
-      throw new ConflictException('O OrderDeal ainda não foi aceito');
+        console.error("[ERRO] O OrderDeal ainda não foi aceito. Status:", orderDeal.clientAcceptance);
+        throw new ConflictException('O OrderDeal ainda não foi aceito');
     }
 
-    // Criar o Order com os dados do OrderDeal
+    const orderRequest = await this.orderRequestService.findOne(orderDeal.orderRequest.id);
+    console.log("[DEBUG] OrderRequest encontrado:", orderRequest);
+
+    // Criando a nova Order
     const order = new Order();
     order.description = `Serviço para ${orderDeal.userPJ.firstName} - Valor: ${orderDeal.freelancerPrice}`;
     order.price = orderDeal.freelancerPrice;
-    order.requestDate = new Date();
-    order.status = OrderStatus.PENDING; 
+    order.userPJ = orderDeal.userPJ;
+    order.category = orderDeal.category;
+    order.userPF = orderRequest.userPF;
 
-    order.deal = orderDeal;
+    console.log("[DEBUG] Criando novo Order:", order);
+    const savedOrder = await this.orderRepository.save(order);
+    console.log("[DEBUG] Order criada e salva com sucesso:", savedOrder);
 
-    return await this.orderRepository.save(order);
+    // Vincular a Order ao OrderDeal
+    orderDeal.order = savedOrder;
+    await this.orderDealRepository.save(orderDeal);
+    console.log("[DEBUG] OrderDeal atualizado com Order associada:", orderDeal);
+
+    return savedOrder;
   }
+
 }

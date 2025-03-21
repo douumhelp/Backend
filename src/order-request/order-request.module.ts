@@ -21,5 +21,6 @@ import { OrderModule } from 'src/order/order.module';
   ],
   controllers: [OrderRequestController],
   providers: [OrderRequestService],
+  exports: [OrderRequestService],
 })
 export class OrderRequestModule {}
